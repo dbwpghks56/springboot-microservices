@@ -2,6 +2,7 @@ package net.javaguides.departmentservice.department.domain.service;
 
 
 import lombok.RequiredArgsConstructor;
+import net.javaguides.departmentservice.common.exception.department.DepartmentNotFoundException;
 import net.javaguides.departmentservice.department.domain.Department;
 import net.javaguides.departmentservice.department.domain.repository.DepartmentRepository;
 import net.javaguides.departmentservice.department.presentation.dto.request.DepartmentRequestDto;
@@ -25,7 +26,7 @@ public class DepartmentService implements DepartmentCommandUseCase {
 
     @Override
     public DepartmentResponseDto updateDepartment(Long id, DepartmentRequestDto departmentRequestDto) {
-        Department department = departmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        Department department = departmentRepository.findById(id).orElseThrow(DepartmentNotFoundException::new);
 
         department.update(departmentRequestDto);
 
@@ -34,7 +35,7 @@ public class DepartmentService implements DepartmentCommandUseCase {
 
     @Override
     public String deleteDepartment(Long id) {
-        departmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다."));
+        departmentRepository.findById(id).orElseThrow(DepartmentNotFoundException::new);
 
         departmentRepository.deleteById(id);
 
@@ -48,6 +49,11 @@ public class DepartmentService implements DepartmentCommandUseCase {
 
     @Override
     public DepartmentResponseDto findById(Long id) {
-        return departmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다.")).toResponseDto();
+        return departmentRepository.findById(id).orElseThrow(DepartmentNotFoundException::new).toResponseDto();
+    }
+
+    @Override
+    public DepartmentResponseDto findByDepartmentCode(String departmentCode) {
+        return departmentRepository.findByDepartmentCode(departmentCode).orElseThrow(DepartmentNotFoundException::new).toResponseDto();
     }
 }

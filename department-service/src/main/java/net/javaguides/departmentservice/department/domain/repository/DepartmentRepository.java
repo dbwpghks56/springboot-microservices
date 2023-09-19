@@ -10,4 +10,5 @@ public interface DepartmentRepository {
     Department save(Department department);
     void deleteById(Long id);
     List<Department> findAll();
+    Optional<Department> findByDepartmentCode(String departmentCode);
 }

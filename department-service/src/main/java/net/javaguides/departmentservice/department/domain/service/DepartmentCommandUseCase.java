@@ -15,4 +15,6 @@ public interface DepartmentCommandUseCase {
     List<DepartmentResponseDto> findAll();
 
     DepartmentResponseDto findById(Long id);
+
+    DepartmentResponseDto findByDepartmentCode(String departmentCode);
 }

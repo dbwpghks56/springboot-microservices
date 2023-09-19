@@ -34,5 +34,8 @@ public class DepartmentFacade {
         return departmentCommandUseCase.findById(id);
     }
 
+    public DepartmentResponseDto findByDepartmentCode(String departmentCode) {
+        return departmentCommandUseCase.findByDepartmentCode(departmentCode);
+    }
 
 }

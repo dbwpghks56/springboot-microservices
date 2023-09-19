@@ -33,4 +33,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public List<Department> findAll() {
         return departmentJpaRepository.findAll();
     }
+
+    @Override
+    public Optional<Department> findByDepartmentCode(String departmentCode) {
+        return departmentJpaRepository.findByDepartmentCode(departmentCode);
+    }
 }

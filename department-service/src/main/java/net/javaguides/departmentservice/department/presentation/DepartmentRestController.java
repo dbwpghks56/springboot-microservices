@@ -21,7 +21,7 @@ public class DepartmentRestController {
         return ResponseEntity.ok(CommonResponse.success(departmentFacade.findAll()));
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public ResponseEntity<CommonResponse<DepartmentResponseDto>> findById(
             @PathVariable Long id) {
         return ResponseEntity.ok(CommonResponse.success(departmentFacade.findById(id)));
@@ -44,5 +44,11 @@ public class DepartmentRestController {
             @PathVariable Long id,
             @RequestBody DepartmentRequestDto departmentRequestDto) {
         return ResponseEntity.ok(CommonResponse.success(departmentFacade.updateDepartment(id, departmentRequestDto)));
+    }
+
+    @GetMapping("/departmentCode/{departmentCode}")
+    public ResponseEntity<CommonResponse<DepartmentResponseDto>> findByDepartmentCode(
+            @PathVariable String departmentCode) {
+        return ResponseEntity.ok(CommonResponse.success(departmentFacade.findByDepartmentCode(departmentCode)));
     }
 }
