@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ import java.util.List;
 public class EmployeeService implements EmployeeCommandUseCase {
     private final EmployeeRepository employeeRepository;
     private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
     @Override
     public EmployeeResponseDto save(EmployeeRequestDto employeeRequestDto) {
@@ -41,16 +43,25 @@ public class EmployeeService implements EmployeeCommandUseCase {
     public RestTemplateResponseDto findById(Long id) {
         EmployeeResponseDto employeeResponseDto = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new).toResponseDto();
 
-        ResponseEntity<CommonResponse<DepartmentResponseDto>> responseEntity = restTemplate.exchange(
-                "http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<CommonResponse<DepartmentResponseDto>>() {}
-        );
+//        ResponseEntity<CommonResponse<DepartmentResponseDto>> responseEntity = restTemplate.exchange(
+//                "http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode(),
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<CommonResponse<DepartmentResponseDto>>() {}
+//        );
+//
+//        CommonResponse<DepartmentResponseDto> commonResponse = responseEntity.getBody();
+//
+//        DepartmentResponseDto departmentResponseDto = commonResponse.getData();
 
-        CommonResponse<DepartmentResponseDto> commonResponse = responseEntity.getBody();
+        CommonResponse<DepartmentResponseDto> departmentResponseDtoCommonResponse = webClient.get()
+                .uri("http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<CommonResponse<DepartmentResponseDto>>() {})
+                .block();
 
-        DepartmentResponseDto departmentResponseDto = commonResponse.getData();
+        DepartmentResponseDto departmentResponseDto = departmentResponseDtoCommonResponse.getData();
+
 
         return RestTemplateResponseDto.builder()
                 .employee(employeeResponseDto)
