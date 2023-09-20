@@ -6,6 +6,7 @@ import net.javaguides.employeeservice.common.CommonResponse;
 import net.javaguides.employeeservice.common.exception.employee.EmployeeNotFoundException;
 import net.javaguides.employeeservice.domain.Employee;
 import net.javaguides.employeeservice.domain.repository.EmployeeRepository;
+import net.javaguides.employeeservice.domain.service.client.DepartmentAPIClient;
 import net.javaguides.employeeservice.presentation.dto.request.EmployeeRequestDto;
 import net.javaguides.employeeservice.presentation.dto.response.DepartmentResponseDto;
 import net.javaguides.employeeservice.presentation.dto.response.EmployeeResponseDto;
@@ -28,6 +29,7 @@ public class EmployeeService implements EmployeeCommandUseCase {
     private final EmployeeRepository employeeRepository;
     private final RestTemplate restTemplate;
     private final WebClient webClient;
+    private final DepartmentAPIClient departmentAPIClient;
 
     @Override
     public EmployeeResponseDto save(EmployeeRequestDto employeeRequestDto) {
@@ -54,18 +56,19 @@ public class EmployeeService implements EmployeeCommandUseCase {
 //
 //        DepartmentResponseDto departmentResponseDto = commonResponse.getData();
 
-        CommonResponse<DepartmentResponseDto> departmentResponseDtoCommonResponse = webClient.get()
-                .uri("http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<CommonResponse<DepartmentResponseDto>>() {})
-                .block();
+//        CommonResponse<DepartmentResponseDto> departmentResponseDtoCommonResponse = webClient.get()
+//                .uri("http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(new ParameterizedTypeReference<CommonResponse<DepartmentResponseDto>>() {})
+//                .block();
+//
+//        DepartmentResponseDto departmentResponseDto = departmentResponseDtoCommonResponse.getData();
 
-        DepartmentResponseDto departmentResponseDto = departmentResponseDtoCommonResponse.getData();
-
+        CommonResponse<DepartmentResponseDto> response = departmentAPIClient.findByDepartmentCode(employeeResponseDto.getDepartmentCode());
 
         return RestTemplateResponseDto.builder()
                 .employee(employeeResponseDto)
-                .department(departmentResponseDto)
+                .department(response.getData())
                 .build();
     }
 }
