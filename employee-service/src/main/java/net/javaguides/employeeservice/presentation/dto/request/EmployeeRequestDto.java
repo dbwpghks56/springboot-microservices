@@ -12,12 +12,14 @@ public class EmployeeRequestDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String departmentCode;
 
     public Employee toEntity() {
         return Employee.builder()
             .firstName(firstName)
             .lastName(lastName)
             .email(email)
+            .departmentCode(departmentCode)
             .build();
     }
 }

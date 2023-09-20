@@ -24,12 +24,15 @@ public class Employee extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
+    private String departmentCode;
+
     public EmployeeResponseDto toResponseDto() {
         return EmployeeResponseDto.builder()
             .id(id)
             .firstName(firstName)
             .lastName(lastName)
             .email(email)
+            .departmentCode(departmentCode)
             .build();
     }
 

@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EmployeeResponseDto {
+public class DepartmentResponseDto {
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
     private String departmentCode;
+    private String departmentName;
+    private String departmentDescription;
 }

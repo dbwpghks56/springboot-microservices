@@ -1,7 +1,7 @@
 package net.javaguides.employeeservice.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import net.javaguides.departmentservice.common.CommonResponse;
+import net.javaguides.employeeservice.common.CommonResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;

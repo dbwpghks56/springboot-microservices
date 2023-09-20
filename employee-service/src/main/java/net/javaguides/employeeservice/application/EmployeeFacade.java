@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.javaguides.employeeservice.domain.service.EmployeeCommandUseCase;
 import net.javaguides.employeeservice.presentation.dto.request.EmployeeRequestDto;
 import net.javaguides.employeeservice.presentation.dto.response.EmployeeResponseDto;
+import net.javaguides.employeeservice.presentation.dto.response.RestTemplateResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class EmployeeFacade {
         return employeeCommandUseCase.findAll();
     }
 
-    public EmployeeResponseDto findById(Long id) {
+    public RestTemplateResponseDto findById(Long id) {
         return employeeCommandUseCase.findById(id);
     }
 }

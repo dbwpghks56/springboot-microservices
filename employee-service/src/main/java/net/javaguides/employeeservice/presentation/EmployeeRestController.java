@@ -5,6 +5,7 @@ import net.javaguides.employeeservice.application.EmployeeFacade;
 import net.javaguides.employeeservice.common.CommonResponse;
 import net.javaguides.employeeservice.presentation.dto.request.EmployeeRequestDto;
 import net.javaguides.employeeservice.presentation.dto.response.EmployeeResponseDto;
+import net.javaguides.employeeservice.presentation.dto.response.RestTemplateResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CommonResponse<EmployeeResponseDto>> findById(
+    public ResponseEntity<CommonResponse<RestTemplateResponseDto>> findById(
             @PathVariable Long id) {
         return ResponseEntity.ok(CommonResponse.success(employeeFacade.findById(id)));
     }
