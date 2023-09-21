@@ -4,7 +4,15 @@ server:
     context-path: /api/v1
   max-http-header-size: 40MB
 
+eureka:
+  instance:
+    serverUrl:
+        defaultZone: http://localhost:8761/eureka/
+
 spring:
+  application:
+    name: DEPARTMENT-SERVICE
+
   main:
     allow-bean-definition-overriding: true
 
