@@ -1,1 +1,26 @@
+eureka:
+  instance:
+    serverUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  ## Routes for Employee service
+  cloud:
+    gateway:
+      routes:
+        - id: EMPLOYEE-SERVICE
+          uri: lb://EMPLOYEE-SERVICE # Load balanced uri
+          predicates:
+            - Path=/api/v1/employee/** # http://localhost:9191/api/v1/employee/1 ??? ??? ???? EMPLOYEE-SERVICE? ??
+        - id: DEPARTMENT-SERVICE
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/api/v1/department/**
+
 
