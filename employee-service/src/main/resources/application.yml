@@ -33,6 +33,17 @@ spring:
   profiles:
     include:
       - db
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 #  jpa:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect
