@@ -13,6 +13,13 @@ spring:
   ## Routes for Employee service
   cloud:
     gateway:
+      discovery:
+#        locator: # ?? ???? ?? ???? ?? ?? ?? (??? ???? ???) ??? ???
+#                  # http://localhost:9191/employee-service/api/v1/employee/1 ??????? employee-service? ??
+#          enabled: true
+#          lower-case-service-id: true
+
+        # ?? ? ???? ???? ??? ??.
       routes:
         - id: EMPLOYEE-SERVICE
           uri: lb://EMPLOYEE-SERVICE # Load balanced uri
@@ -22,5 +29,11 @@ spring:
           uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/api/v1/department/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+
+
 
 
