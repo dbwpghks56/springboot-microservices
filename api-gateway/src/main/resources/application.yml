@@ -29,10 +29,20 @@ spring:
           uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/api/v1/department/**
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # ?? ?????? ??????.
+  tracing:
+    sampling:
+      probability: 1.0
 
 logging:
   level:
     org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 
 
