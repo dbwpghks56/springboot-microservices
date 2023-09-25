@@ -44,9 +44,29 @@ management:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
   tracing:
     sampling:
       probability: 1.0
+  health:
+    circuitbreakers:
+      enabled: true
+
+# Circuit breaker configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      EMPLOYEE-SERVICE:
+        registerHealthIndicator: true
+        failureRateThreshold: 50 # 실패 임계값
+        minimumNumberOfCalls: 5 # 최소 호출 횟수
+        automaticTransitionFromOpenToHalfOpenEnabled: true # 자동으로 Half-Open 상태로 전환
+        waitDurationInOpenState: 5s # Open 상태 유지 시간
+        permittedNumberOfCallsInHalfOpenState: 3 # Half-Open 상태에서 허용되는 호출 횟수
+        slidingWindowSize: 10 # 실패율을 계산할 호출 횟수
+        slidingWindowType: COUNT_BASED # 실패율을 계산할 방식 (COUNT_BASED, TIME_BASED)
 
 logging:
   level:
