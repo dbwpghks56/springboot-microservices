@@ -1,6 +1,7 @@
 package net.javaguides.employeeservice.domain.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javaguides.employeeservice.common.CommonResponse;
@@ -43,10 +44,11 @@ public class EmployeeService implements EmployeeCommandUseCase {
     }
 
     @Override
-    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment") // fallbackMethod는 CircuitBreaker가 발동되면 호출될 메서드를 지정한다.
+    @Retry(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment") // fallbackMethod는 Retry가 발동되면 호출될 메서드를 지정한다.
+//    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment") // fallbackMethod는 CircuitBreaker가 발동되면 호출될 메서드를 지정한다.
     public RestTemplateResponseDto findById(Long id) {
         EmployeeResponseDto employeeResponseDto = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new).toResponseDto();
-
+        log.info("inside getEmployeeById() method");
 //        ResponseEntity<CommonResponse<DepartmentResponseDto>> responseEntity = restTemplate.exchange(
 //                "http://localhost:8080/api/v1/department/departmentCode/" + employeeResponseDto.getDepartmentCode(),
 //                HttpMethod.GET,
@@ -76,7 +78,7 @@ public class EmployeeService implements EmployeeCommandUseCase {
 
     public RestTemplateResponseDto getDefaultDepartment(Long id, Exception e) {
         EmployeeResponseDto employeeResponseDto = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new).toResponseDto();
-
+        log.info("inside getDefaultDepartment() method");
         DepartmentResponseDto departmentResponseDto = DepartmentResponseDto.builder()
                 .id(0L)
                 .departmentCode("default")

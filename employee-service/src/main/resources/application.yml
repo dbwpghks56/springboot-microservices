@@ -67,6 +67,14 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3 # Half-Open 상태에서 허용되는 호출 횟수
         slidingWindowSize: 10 # 실패율을 계산할 호출 횟수
         slidingWindowType: COUNT_BASED # 실패율을 계산할 방식 (COUNT_BASED, TIME_BASED)
+  # retry configuration
+  retry:
+    instances:
+      EMPLOYEE-SERVICE:
+        registerHealthIndicator: true
+        maxRetryAttempts: 5 # 최대 재시도 횟수
+        waitDuration: 2s # 재시도 대기 시간
+
 
 logging:
   level:
