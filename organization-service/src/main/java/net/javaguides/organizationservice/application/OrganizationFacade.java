@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.javaguides.organizationservice.domain.service.OrganizationCommandUseCase;
 import net.javaguides.organizationservice.presentation.dto.request.OrganizationRequestDto;
 import net.javaguides.organizationservice.presentation.dto.response.OrganizationResponseDto;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class OrganizationFacade {
         return organizationCommandUseCase.createOrganization(organizationRequestDto);
     }
 
+    @Cacheable(value = "organization", key = "#organizationCode", unless = "#result == null")
     public OrganizationResponseDto findByOrganizationCode(String organizationCode) {
         return organizationCommandUseCase.findByOrganizationCode(organizationCode);
     }
 
+    @Cacheable(value = "organization", key = "#id", unless = "#result == null")
     public OrganizationResponseDto findById(Long id) {
         return organizationCommandUseCase.findById(id);
     }
