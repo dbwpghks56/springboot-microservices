@@ -26,6 +26,8 @@ public class Employee extends BaseEntity {
 
     private String departmentCode;
 
+    private String organizationCode;
+
     public EmployeeResponseDto toResponseDto() {
         return EmployeeResponseDto.builder()
             .id(id)

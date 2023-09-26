@@ -13,6 +13,7 @@ public class EmployeeRequestDto {
     private String lastName;
     private String email;
     private String departmentCode;
+    private String organizationCode;
 
     public Employee toEntity() {
         return Employee.builder()
@@ -20,6 +21,7 @@ public class EmployeeRequestDto {
             .lastName(lastName)
             .email(email)
             .departmentCode(departmentCode)
+            .organizationCode(organizationCode)
             .build();
     }
 }

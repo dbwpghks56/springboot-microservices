@@ -9,9 +9,11 @@ import net.javaguides.employeeservice.common.exception.employee.EmployeeNotFound
 import net.javaguides.employeeservice.domain.Employee;
 import net.javaguides.employeeservice.domain.repository.EmployeeRepository;
 import net.javaguides.employeeservice.domain.service.client.DepartmentAPIClient;
+import net.javaguides.employeeservice.domain.service.client.OrganizationAPIClient;
 import net.javaguides.employeeservice.presentation.dto.request.EmployeeRequestDto;
 import net.javaguides.employeeservice.presentation.dto.response.DepartmentResponseDto;
 import net.javaguides.employeeservice.presentation.dto.response.EmployeeResponseDto;
+import net.javaguides.employeeservice.presentation.dto.response.OrganizationResponseDto;
 import net.javaguides.employeeservice.presentation.dto.response.RestTemplateResponseDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -32,6 +34,7 @@ public class EmployeeService implements EmployeeCommandUseCase {
     private final RestTemplate restTemplate;
     private final WebClient webClient;
     private final DepartmentAPIClient departmentAPIClient;
+    private final OrganizationAPIClient organizationAPIClient;
 
     @Override
     public EmployeeResponseDto save(EmployeeRequestDto employeeRequestDto) {
@@ -68,11 +71,13 @@ public class EmployeeService implements EmployeeCommandUseCase {
 //
 //        DepartmentResponseDto departmentResponseDto = departmentResponseDtoCommonResponse.getData();
 
-        CommonResponse<DepartmentResponseDto> response = departmentAPIClient.findByDepartmentCode(employeeResponseDto.getDepartmentCode());
+        CommonResponse<DepartmentResponseDto> departmentResponse = departmentAPIClient.findByDepartmentCode(employeeResponseDto.getDepartmentCode());
+        CommonResponse<OrganizationResponseDto> organizationResponse = organizationAPIClient.findByOrganizationCode(employeeResponseDto.getOrganizationCode());
 
         return RestTemplateResponseDto.builder()
                 .employee(employeeResponseDto)
-                .department(response.getData())
+                .department(departmentResponse.getData())
+                .organization(organizationResponse.getData())
                 .build();
     }
 

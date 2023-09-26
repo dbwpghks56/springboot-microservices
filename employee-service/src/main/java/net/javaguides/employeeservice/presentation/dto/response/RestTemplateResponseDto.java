@@ -10,4 +10,5 @@ import lombok.*;
 public class RestTemplateResponseDto {
     private EmployeeResponseDto employee;
     private DepartmentResponseDto department;
+    private OrganizationResponseDto organization;
 }
