@@ -29,6 +29,10 @@ spring:
           uri: lb://DEPARTMENT-SERVICE
           predicates:
             - Path=/api/v1/department/**
+        - id: ORGANIZATION-SERVICE
+          uri: lb://ORGANIZATION-SERVICE
+          predicates:
+            - Path=/api/v1/organization/**
 management:
   endpoints:
     web:
