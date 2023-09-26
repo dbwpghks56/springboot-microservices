@@ -35,6 +35,7 @@ public class Employee extends BaseEntity {
             .lastName(lastName)
             .email(email)
             .departmentCode(departmentCode)
+            .organizationCode(organizationCode)
             .build();
     }
 
