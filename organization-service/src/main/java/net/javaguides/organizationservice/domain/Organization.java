@@ -29,6 +29,7 @@ public class Organization extends BaseEntity {
             .organizationName(this.organizationName)
             .organizationDescription(this.organizationDescription)
             .organizationCode(this.organizationCode)
+            .createdAt(this.getCreatedDate())
             .build();
     }
 }
