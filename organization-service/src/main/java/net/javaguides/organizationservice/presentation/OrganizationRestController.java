@@ -29,7 +29,7 @@ public class OrganizationRestController {
         return ResponseEntity.ok(CommonResponse.success(organizationFacade.findById(id)));
     }
 
-    @GetMapping("/organizationCode/{organizationCode}")
+    @GetMapping("/code/{organizationCode}")
     public ResponseEntity<CommonResponse<OrganizationResponseDto>> findByOrganizationCode(
             @PathVariable String organizationCode) {
         return ResponseEntity.ok(CommonResponse.success(organizationFacade.findByOrganizationCode(organizationCode)));
