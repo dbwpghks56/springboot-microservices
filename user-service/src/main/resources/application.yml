@@ -59,3 +59,7 @@ logging:
 #  header: Authorization
 #  secret: sksmsgodqhrgkwlakstktlfrmrjtdmsgodqhrgkwldksgsmsrjtdmlqkswmddlehlrlehgksekdlrpantmsthflsiaus
 #  token-validity-in-seconds: 86400
+jwt:
+  header: Authorization
+  secret: sksmsgodqhrgkwlakstktlfrmrjtdmsgodqhrgkwldksgsmsrjtdmlqkswmddlehlrlehgksekdlrpantmsthflsiaus
+  token-validity-in-seconds: 86400
