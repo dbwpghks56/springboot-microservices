@@ -3,6 +3,7 @@ package net.javajh.userservice.presentation;
 import lombok.RequiredArgsConstructor;
 import net.javajh.userservice.application.UserFacade;
 import net.javajh.userservice.common.CommonResponse;
+import net.javajh.userservice.presentation.dto.request.AuthTestRequestDto;
 import net.javajh.userservice.presentation.dto.request.UserLoginRequestDto;
 import net.javajh.userservice.presentation.dto.request.UserRegistryRequestDto;
 import net.javajh.userservice.presentation.dto.response.AuthResponseDto;
@@ -31,11 +32,11 @@ public class UserRestController {
         return ResponseEntity.ok(CommonResponse.success(userFacade.login(userLoginRequestDto)));
     }
 
-    @GetMapping("/userdata")
+    @PostMapping("/userdata")
     public ResponseEntity<CommonResponse<UserResponseDto>> getUserData(
-            @RequestParam String token
+            @RequestBody AuthTestRequestDto authTestRequestDto
     ) {
-        return ResponseEntity.ok(CommonResponse.success(userFacade.getUserDate(token)));
+        return ResponseEntity.ok(CommonResponse.success(userFacade.getUserDate(authTestRequestDto.getAccessToken())));
     }
 
     @GetMapping("/username")

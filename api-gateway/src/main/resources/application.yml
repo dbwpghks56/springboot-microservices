@@ -34,7 +34,7 @@ spring:
           predicates:
             - Path=/api/v1/organization/**
         - id: USER-SERVICE
-          uri: lb://ORGANIZATION-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/user/**
 management:

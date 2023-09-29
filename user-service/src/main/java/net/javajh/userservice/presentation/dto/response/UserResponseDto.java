@@ -2,8 +2,10 @@ package net.javajh.userservice.presentation.dto.response;
 
 import lombok.*;
 
+import java.util.LinkedHashMap;
+
 @Getter
-@ToString
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
