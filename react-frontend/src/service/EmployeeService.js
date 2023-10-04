@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const EMPLOYEE_SERVICE_BASE_URL = "http://localhost:9191/api/v1/employee/";
-const EMPLOYEE_ID = 1;
+const EMPLOYEE_ID = 3;
 
 class EmployeeService {
     getEmployee() {
