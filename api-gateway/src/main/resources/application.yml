@@ -13,6 +13,16 @@ spring:
   ## Routes for Employee service
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
       discovery:
 #        locator: # ?? ???? ?? ???? ?? ?? ?? (??? ???? ???) ??? ???
 #                  # http://localhost:9191/employee-service/api/v1/employee/1 ??????? employee-service? ??
