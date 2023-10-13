@@ -1,0 +1,4 @@
+eureka:
+  instance:
+    serverUrl:
+      defaultZone: http://service-registry:8761/eureka/
