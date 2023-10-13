@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY build/libs/user-service-0.0.1-SNAPSHOT.jar /app/user-service.jar
 
-ENTRYPOINT ["java", "-jar", "user-service.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "user-service.jar"]
